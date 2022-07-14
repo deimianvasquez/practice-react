@@ -12,21 +12,21 @@ const Carousel = () => {
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img
-              src="https://picsum.photos/id/237/300"
+              src="https://picsum.photos/1200/400"
               className="d-block w-100"
               alt="..."
             />
           </div>
           <div className="carousel-item">
             <img
-              src="https://picsum.photos/id/237/300"
+              src="https://picsum.photos/1200/400"
               className="d-block w-100"
               alt="..."
             />
           </div>
           <div className="carousel-item">
             <img
-              src="https://picsum.photos/id/237/300"
+              src="https://picsum.photos/1200/400"
               className="d-block w-100"
               alt="..."
             />
