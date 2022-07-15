@@ -1,3 +1,6 @@
+body{
+    background-color: blueviolet;
+}
 .contact-list{
     display: flex;
     justify-content: flex-start;
