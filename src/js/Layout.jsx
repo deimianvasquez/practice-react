@@ -1,15 +1,12 @@
 import React from "react";
-import Menu from "./components/Menu.jsx";
 import Home from "./views/Home.jsx";
 
-function Layout() {
-  return (
-    //retorna jsx
+const Layout =()=>{
+  return(
     <>
-      <Menu />
       <Home/>
     </>
   );
 }
 
-export default Layout;
+export default Layout
