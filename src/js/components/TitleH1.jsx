@@ -1,7 +1,6 @@
 import React from "react";
 
 const TitleH1 =(props)=>{
-  console.log(props)
   return(
     <div className="container my-5">
       <div className="row">
