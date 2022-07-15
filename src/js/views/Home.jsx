@@ -1,117 +1,155 @@
-import React from "react";
-import Card from "../components/Card.jsx";
-import Carousel from "../components/Carousel.jsx";
-import TitleH1 from "../components/TitleH1.jsx";
-import Task from "../components/Task.jsx";
-import ImagesRandom from "../components/ImagesRamdom.jsx";
+import React, { useState } from "react";
+import Menu from "../components/Menu.jsx";
 
-function Home() {
-  let lista = [
-    {
-      title: "Se acaba el mundo",
-      description: "Se termino esto llegaron los zombis",
-    },
-    {
-      title: "4geeks gratis",
-      description: "Quieren aprender 4geeks es gratis para todos los zombies",
-    },
-    {
-      title: "Octavio es el nuevo presidente",
-      description: "arreglas los hospitales",
-    },
-  ];
+const Home = () => {
+  const [contactList, setContactList] = useState([]);
 
-  let listTask = [
-    {
-      title: "Bañar al perro",
-      description: "Debes bañar al perro huele mal",
-      done: "Falso",
-    },
-    {
-      title: "Hacer café",
-      description: "debe ser colado, de cafetera no me gusta",
-      done: "Falso",
-    },
-    {
-      title: "Bañar al fato",
-      description: "Debes bañar al gato pero no en la lavadora",
-      done: "Falso",
-    },
-    {
-      title: "Bañar al fato",
-      description: "Debes bañar al gato pero no en la lavadora",
-      done: "Falso",
-    },
-    {
-      title: "Bañar al fato",
-      description: "Debes bañar al gato pero no en la lavadora",
-      done: "Falso",
-    },
-  ];
+  const [contact, setContact] = useState({
+    name: "",
+    email: "",
+    myPhoneNumber: "",
+  });
 
-  let images = [
-    {
-      url_image: "https://picsum.photos/id/10/80/80",
-      description: "una descripcion",
-    },
-    {
-      url_image: "https://picsum.photos/id/10/80/80",
-      description: "una descripcion",
-    },
-  ];
+  const saveContactList = (event) => {
+    if (
+      contact.name.trim() !== "" &&
+      contact.email.trim() !== "" &&
+      contact.myPhoneNumber.trim() !== ""
+    ) {
+      //guardo el contacto
+      setContactList([...contactList, contact]);
+
+      setContact({
+        name: "",
+        email: "",
+        myPhoneNumber: "",
+      });
+
+      setError(false);
+    } else {
+      setError(true);
+    }
+  };
+
+  const [error, setError] = useState(false);
+
+  const addContact = (event) => {
+    setContact({ ...contact, [event.target.name]: event.target.value });
+  };
 
   return (
     <>
-      <Carousel />
-      <TitleH1
-        title="Hola que tal desde las propiedades"
-        color="text-success"
-      />
-
-      <TitleH1 title="Noticias" color="text-danger" />
-
-      {lista.map((news, index) => {
-        return (
-          <Card
-            key={index}
-            deimian={news.title}
-            description={news.description}
-          />
-        );
-      })}
-
-      <TitleH1 title="Imagenes Ramdom" color="text-warning" />
+      <Menu />
       <div className="container">
         <div className="row">
-          {images.map((img, index) => {
-            return (
-              <ImagesRandom
-                key={index}
-                image={img.url_image}
-                description={img.description}
-              />
-            );
-          })}
+          <div className="col-12 my-2">
+            <h1 className="text-center">My contact list</h1>
+          </div>
         </div>
       </div>
 
       <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-12 col-md-6 border">
+            <form>
+              <div className="form-group my-3">
+                <label>Email: </label>
+                <input
+                  className="form-control"
+                  placeholder="Email"
+                  type="text"
+                  name="email"
+                  value={contact.email}
+                  onChange={addContact}
+                />
+              </div>
+              <div className="form-group my-3">
+                <label>Name: </label>
+                <input
+                  className="form-control"
+                  placeholder="Name"
+                  type="text"
+                  name="name"
+                  value={contact.name}
+                  onChange={addContact}
+                />
+              </div>
+              <div className="form-group my-3">
+                <label>Phone Number: </label>
+                <input
+                  className="form-control"
+                  placeholder="Phone Number"
+                  type="text"
+                  name="myPhoneNumber"
+                  value={contact.myPhoneNumber}
+                  onChange={addContact}
+                />
+              </div>
+              <div className="form-group my-3">
+                <button
+                  className="btn btn-primary w-100"
+                  onClick={saveContactList}
+                  type="button"
+                >
+                  Save Contact
+                </button>
+              </div>
+            </form>
+          </div>
+          <div className="">
+            Contact{" "}
+            {contactList.length <= 0
+              ? "No tiene contactos registrdos"
+              : "Usted tiene" +contactList.length + "registrados"}
+          </div>
+
+          {error ? (
+            <div className="alert alert-danger">
+              Todos los Campos son Validos
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
+      </div>
+
+      <div className="container ">
         <div className="row">
-          <TitleH1 title="Tareas" color="text-primary" />
-          {listTask.map((task, index) => {
-            return (
-              <Task
-                key={index}
-                title={task.title}
-                description={task.description}
-                done={task.done}
-              />
-            );
-          })}
+          <div className="col-12">
+            {contactList.map((conta, index) => {
+              return (
+                <div
+                  key={index}
+                  className="border border-danger contact-list my-2"
+                >
+                  <div className="contact-list--img">
+                    <img
+                      src="https://picsum.photos/id/10/80/80"
+                      alt="profile"
+                    />
+                  </div>
+                  <div className="contact-list--address">
+                    <p>
+                      <span>Name:</span>
+                      {conta.name}
+                    </p>
+                    <p>
+                      <span>Phone Number:</span>
+                      {conta.myPhoneNumber}
+                    </p>
+                    <p>
+                      <span>Email:</span>
+                      {conta.email}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default Home;
